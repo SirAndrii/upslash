@@ -1,0 +1,61 @@
+.imgWrapper {
+    width: 270px;
+    height: 150px; 
+    margin: 5px;
+    border-radius:5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.imgWrapper img {
+    display:block;
+    width:100%;
+    transition: all 2s ease;
+}
+
+.imgWrapper:hover img {
+    transform: scale(1.1);
+    opacity:0.8;
+}
+
+.imgOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    opacity: 0;
+    transition: opacity 0.25s;
+    
+}
+.imgOverlay:hover {
+    opacity: 1;
+}
+
+.imgOverlay button{
+    position:absolute;
+    top:5px;
+    right:5px;
+}
+.imgOverlay > div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+.imgOverlay>div p{
+    margin: 0px;
+    font-size: 0.7rem;
+}
+
+.imgOverlay>div p:first-child {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+
