@@ -8,28 +8,28 @@ import Button from './components/button/button';
 import Gallery from './gallery/gallery.js';
 
 function App() {
-
   const [imagesData,setImagesData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [pageObj, setPageObj] = useState({ page: 1, per_page: 9});
   const [loading, setLoading] = useState(true);
 
   const loadText = loading ? 'Loading' : 'Load More';
 
   useEffect( () => {
-    const loadGallery = async(page) => {
-      setLoading(true);
-
-      const data = await new FetchImages(page).getThumbsData();
+    const loadGallery = async ( obj ) => {
+      setLoading( true );
+      const data = await new FetchImages().getThumbsData( obj );
       
-      setImagesData(prev=>[...prev, ...data]); 
-      setLoading(false);
+      setImagesData( prev => [...prev, ...data] ); 
+      setLoading( false );
     };
 
-    loadGallery(page);
-  }, [page]);
+    loadGallery( pageObj );
+  }, [pageObj]);
 
   const loadMore = () => {
-    setPage(page + 1);
+    setPageObj(
+      ( {page} ) => ( { ...pageObj, page: page + 1} )
+    );
   };
   
   return (

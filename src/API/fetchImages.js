@@ -1,21 +1,33 @@
 const {REACT_APP_UNSPLASH_CLIENT_ID} = process.env;
 
 class FetchImages {
-    constructor( page, perPage = 9 ){
-        this.page = page;
-        this.perPage = perPage;
+    constructor(){
         this.url = 'https://api.unsplash.com/photos?client_id=' + REACT_APP_UNSPLASH_CLIENT_ID;
     }
-    
-    async request () {
-        const response = await fetch(`${ this.url }&page=${ this.page }&per_page=${ this.perPage }`);
-        const data = await response.json();
 
-        return data;
+    objToQuery (params){
+        let paramsQuery = '';
+        if ( params instanceof Object && Object.keys(params).length > 0 ) {
+            const paramsArray = Object.keys(params).map( key => key + '=' + params[key]); 
+            paramsQuery = '&' + paramsArray.join('&');
+        }
+
+        return paramsQuery;
+    }
+    
+    async request ( paramsQuery ) {
+        try {
+            const response = await fetch( this.url + paramsQuery );
+            const data = await response.json();
+
+            return data;
+        } catch ( error ) {
+            console.error( error );
+        }
     }
 
-    async getThumbsData () {
-        const imgDataArray= await this.request();
+    async getThumbsData ( params = null ) {
+        const imgDataArray= await this.request( this.objToQuery ( params ) );
         const filteredArray = imgDataArray.map(
             ({
               id, 

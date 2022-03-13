@@ -14,7 +14,7 @@ const Thumb = ({urls,author,description,download}) => {
                 alt={description} 
             />
             <div className="imgOverlay">
-                <Button color="buttonWhite" onclick={()=>window.open(download)}>Download</Button>
+                <Button color="buttonWhite" onclick={ () => window.open(download) }>Download</Button>
                 <Description author={author} description={description} />
             </div>
         </div>
